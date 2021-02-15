@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace RockyDemo.Models
 
         public string Name { get; set; }
 
+        [DisplayName("Display Order")] 
+        //see https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-5.0#the-label-tag-helper
         public int DisplayOrder { get; set; }
     }
 }

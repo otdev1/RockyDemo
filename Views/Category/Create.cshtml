@@ -1,0 +1,59 @@
+﻿@model RockyDemo.Models.Category 
+
+<!--category model is needed so that the values the user enters for category name and display order can 
+    be passed to the action i.e post (create) method in the category controller after create new category button 
+    in Cateory/Index.cshtml is clicked-->
+
+<form method="post" asp-action="Create"> 
+    <!--the create value for the asp-action tag helper refers to (post) create method in category controller-->
+    <div class="border p-3">
+        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Add Category</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                        <!--see 
+                            https://docs.microsoft.com/en-us/aspnet/core/mvc/views/working-with-forms?view=aspnetcore-5.0#the-label-tag-helper 
+                          for asp-for tag helper info -->
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="DisplayOrder"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="DisplayOrder" class="form-control" />
+                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
+                            <!--asp-controller="Category" is optional but exluded here because this view is in the same directory as
+                                Views/Index.cshtml and both these views belong to the same controller-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+            </div>
+        </div>
+    </div>
+
+</form>

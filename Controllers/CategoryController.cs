@@ -33,5 +33,27 @@ namespace RockyDemo.Controllers
             return View(objList); 
             //enables contents of object list ot be accessible in the Index view(see Views/Category/Index.chtml
         }
+
+        //GET - CREATE see Views/Category/Create.cshtml
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //POST - CREATE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Category.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+
+        }
+
     }
 }
