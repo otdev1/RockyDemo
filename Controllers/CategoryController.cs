@@ -41,15 +41,20 @@ namespace RockyDemo.Controllers
         }
 
         //POST - CREATE
-        [HttpPost]
+        [HttpPost] //declares that Create() is post action method
         [ValidateAntiForgeryToken]
+        /*used to maintain integrity of the form submitted i.e prevent SQL injections and submission of forms from other
+          sites to the post url*/
         public IActionResult Create(Category obj)
         {
             if (ModelState.IsValid)
             {
-                _db.Category.Add(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                _db.Category.Add(obj); //adds the category obj passed to create function as a record to Category table in database 
+                _db.SaveChanges(); //persists the new record to the database
+
+                return RedirectToAction("Index"); 
+                /*the redirecttoaction accepts an action method as parameter in this case it is Index, since Index is in this 
+                  controller the controller name does not have to be provided*/
             }
             return View(obj);
 
