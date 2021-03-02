@@ -47,7 +47,7 @@ namespace RockyDemo.Controllers
           sites to the post url*/
         public IActionResult Create(Category obj)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //checks if rules defined in the model is valid see category.cs
             {
                 _db.Category.Add(obj); //adds the category obj passed to create function as a record to Category table in database 
                 _db.SaveChanges(); //persists the new record to the database
@@ -56,7 +56,102 @@ namespace RockyDemo.Controllers
                 /*the redirecttoaction accepts an action method as parameter in this case it is Index, since Index is in this 
                   controller the controller name does not have to be provided*/
             }
+            return View(obj); //return error message if rules are invalid
+
+        }
+
+        //GET - EDIT see Views/Category/edit.cshtml
+        public IActionResult Edit(int? id) //int? indicates that the field in this case id can be nullable
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.Category.Find(id);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
             return View(obj);
+        }
+
+        //POST - EDIT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Category.Update(obj);
+
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+
+        }
+
+        //GET - DELETE
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Category.Find(id);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        //POST - DELETE
+        [HttpPost]
+        //[HttpPost, ActionName("Delete")]
+        //[HttpDelete]
+        [ValidateAntiForgeryToken]
+
+        /*there are two edit methods one which accepts an int as an argument and another which accepts an obj
+         however in order to differenciate the delete methods which both accept an int as an argument a different 
+        name is used for 2nd method*/
+        /*public IActionResult DeletePost(int? id)
+        {
+            var obj = _db.Category.Find(id);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Category.Remove(obj);
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+
+
+        }*/
+        public IActionResult Delete(Category obj)
+        {
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Category.Remove(obj);
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+
 
         }
 

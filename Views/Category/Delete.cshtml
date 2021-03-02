@@ -3,14 +3,16 @@
     be passed to the action i.e post (create) method in the category controller after create new category button
     in Cateory/Index.cshtml is clicked-->
 
-<form method="post" asp-action="Create">
-    <!--the create value for the asp-action tag helper refers to the (post) create method in category controller
-        the submitted form data is passed to the create method as an object of type Category see categorycontroller.cs-->
+<form method="post" asp-action="Delete">
+    <!--the asp-action tag helper is excluded because the name of this page i.e edit is
+        the same as the post action see categorycontroller-->
+    <input asp-for="CategoryId" hidden />
+    <!--captures the id of current category so that it can passed to edit action method when the form is submitted-->
     <div class="border p-3">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
         <!--see enables validation see Category.cs-->
         <div class="form-group row">
-            <h2 class="text-info pl-3">Add Category</h2>
+            <h2 class="text-info pl-3">Delete Category</h2>
         </div>
         <div class="row">
             <div class="col-8">
@@ -22,11 +24,9 @@
                           for asp-for tag helper info -->
                     </div>
                     <div class="col-8">
-                        <input asp-for="Name" class="form-control" />
+                        <input asp-for="Name" disabled class="form-control" />
                         <!-- using asp-for tag heleper allows the value entered in this input field to be binded to
                              the corresponding field of the model i.e name and Category respectively-->
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                        <!--enables validation for individual property see Category.cs-->
                     </div>
 
                 </div>
@@ -35,9 +35,7 @@
                         <label asp-for="DisplayOrder"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="DisplayOrder" class="form-control" />
-                        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-                        <!--enables validation for individual property see Category.cs-->
+                        <input asp-for="DisplayOrder" disabled class="form-control" />
                     </div>
 
                 </div>
@@ -45,7 +43,7 @@
                     <div class="col-8 offset-4 row">
 
                         <div class="col">
-                            <input type="submit" class="btn btn-info w-100" value="Create" />
+                            <input type="submit" class="btn btn-danger w-100" value="Delete" />
                         </div>
                         <div class="col">
                             <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
